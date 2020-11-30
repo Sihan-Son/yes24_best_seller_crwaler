@@ -33,12 +33,12 @@ for book in book_list:
     res = requests.post(book_url)
     soup = BeautifulSoup(res.text, 'html.parser')
 
-    title_tag = 'div.topColRgt > div.gd_infoTop > div.gd_titArea > h2'
-    date_tag = 'div.topColRgt > div.gd_infoTop > span.gd_pubArea > span.gd_date'
+    title_tag = 'div.topColRgt > div.gd_infoTop > div.gd_titArea > h2' # 제목
+    date_tag = 'div.topColRgt > div.gd_infoTop > span.gd_pubArea > span.gd_date' # 출간일
     pb = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_pub"  # 출판사
     au = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_auth"  # 저자
-    pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div.gd_infoTb > table > tbody > tr > td > span > em"
-    sc = "div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span.gd_sellNum "
+    pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div.gd_infoTb > table > tbody > tr > td > span > em" # 가격
+    sc = "div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span.gd_sellNum " # 판매지수
 
     title_a = soup.select(title_tag)
     date = soup.select(date_tag)  # 출간일
@@ -48,7 +48,7 @@ for book in book_list:
     scp = soup.select(sc)  # 판매지수
 
     title = str(title_a).split("\">")[1].split("</")[0]
-    publishing_date = str(date).split(">")[1].split("<")[0]
+    publishing_date = str(date).split(">")[1].split("<")[0].replace("년 ", '-').replace("월 ", '-').replace("일", '')
     publish = str(pbp).split("\">")[2].split("<")[0]
     author = str(aut).split("\">")[2].split("<")[0]
     price = str(pri).split("\">")[1].split("<")[0]
@@ -62,5 +62,5 @@ for book in book_list:
 
     header += f'{title}, {publishing_date}, {publish}, {author}, {price}, {selling_score} \r'
 
-with open(f"{year}-{month} top 100 book.csv", "w") as f:
+with open(f"{year}-{month} top {size} book.csv", "w") as f:
     f.write(header)
