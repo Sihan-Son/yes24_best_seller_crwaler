@@ -26,7 +26,7 @@ book_list = []
 for i in range(int(size)):
     book_list.append(str(books[i]).split("\"")[1])
 
-header = "제목, 출간일, 출판사, 저자, 가격, 판매지수\r\n"
+header = "제목, 출간일, 출판사, 저자, 가격, 판매지수\r"
 
 for book in book_list:
     book_url = url_header + book
@@ -60,7 +60,7 @@ for book in book_list:
     if selling_score.find(','):
         selling_score = selling_score.replace(',', "")
 
-    header += f'{title}, {publishing_date}, {publish}, {author}, {price}, {selling_score} \r\n'
+    header += f'{title}, {publishing_date}, {publish}, {author}, {price}, {selling_score} \r'
 
-with open("100 book_list.csv", "w") as f:
+with open(f"{year}-{month} top 100 book.csv", "w") as f:
     f.write(header)
