@@ -4,6 +4,9 @@
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+import re
+
+pattern = re.compile('[0-9]{13}')
 
 url_header = 'http://www.yes24.com/'
 
@@ -26,7 +29,7 @@ book_list = []
 for i in tqdm(range(int(size))):
     book_list.append(str(books[i]).split("\"")[1])
 
-header = "제목, 출간일, 출판사, 저자, 가격, 판매지수\r"
+header = "제목, 출간일, 출판사, 저자, 가격, 판매지수, ISBN\r\n"
 
 for book in tqdm(book_list, desc="Get Book Info"):
     book_url = url_header + book
@@ -39,6 +42,7 @@ for book in tqdm(book_list, desc="Get Book Info"):
     au = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_auth"  # 저자
     pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > input > div.gd_infoTb> table > tbody > tr > td > span > em.yes_m" # 가격
     sc = "div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span.gd_sellNum "  # 판매지수
+    isbn_ = "div.gd_detailBotCont.clearfix > div.gd_dContLft > div.gd_infoSet > div.infoSetCont_wrap > div.yesTb > table > tbody > tr > td.txt.lastCol"
 
     title_a = soup.select(title_tag)
     date = soup.select(date_tag)  # 출간일
@@ -46,6 +50,7 @@ for book in tqdm(book_list, desc="Get Book Info"):
     aut = soup.select(au)  # 저자
     pri = soup.select(pr)  # 가격
     scp = soup.select(sc)  # 판매지수
+    isbn = pattern.findall(str(soup.select(isbn_)))[0]
 
     title = str(title_a).split("\">")[1].split("</")[0].replace(",", ' ')
     publishing_date = str(date).split(">")[1].split("<")[0].replace("년 ", '-').replace("월 ", '-').replace("일", '')
@@ -65,7 +70,7 @@ for book in tqdm(book_list, desc="Get Book Info"):
     if selling_score.find(','):
         selling_score = selling_score.replace(',', "")
 
-    header += f'{title}, {publishing_date}, {publish}, {author}, {price}, {selling_score} \r'
+    header += f'{title}, {publishing_date}, {publish}, {author}, {price}, {selling_score}, {isbn} \r\n'
 
 with open(f"{year}-{month} top {size} book.csv", "w") as f:
     f.write(header)
