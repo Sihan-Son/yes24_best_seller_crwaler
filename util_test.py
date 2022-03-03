@@ -6,7 +6,7 @@ from util import *
 import time
 
 category = '001001003'
-year = '2018'
+year = '2020'
 # month = '2'
 size = '100'
 
@@ -14,7 +14,7 @@ size = '100'
 #########################################################################
 
 past = time.time()
-for month in (range(1, 2, 1)):
+for month in (range(1, 3, 1)):
     book_list = best_selling_month_and_year(category, year, month, size)
     book_info = get_book_info(book_list)
 
@@ -25,7 +25,7 @@ print(time.time() - past)
 #########################################################################
 
 past = time.time()
-for month in (range(1, 2, 1)):
+for month in (range(1, 3, 1)):
     book_list = ur.best_selling_month_and_year(category, year, month, size)
     book_info = ur.get_book_info(book_list)
 

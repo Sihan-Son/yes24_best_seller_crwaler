@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 url_header = 'http://www.yes24.com/'
 
-year = '2020'
+year = '2022'
 month = '2'
 category = '001001003'
 size = '100'
@@ -37,7 +37,7 @@ for book in tqdm(book_list, desc="Get Book Info"):
     date_tag = 'div.topColRgt > div.gd_infoTop > span.gd_pubArea > span.gd_date'  # 출간일
     pb = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_pub"  # 출판사
     au = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_auth"  # 저자
-    pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div.gd_infoTb > table > tbody > tr > td > span > em"  # 가격
+    pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > input > div.gd_infoTb> table > tbody > tr > td > span > em.yes_m" # 가격
     sc = "div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span.gd_sellNum "  # 판매지수
 
     title_a = soup.select(title_tag)

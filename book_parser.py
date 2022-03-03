@@ -13,7 +13,7 @@ title_tag = 'div.topColRgt > div.gd_infoTop > div.gd_titArea > h2'
 date_tag = 'div.topColRgt > div.gd_infoTop > span.gd_pubArea > span.gd_date'
 pb = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_pub"  # 출판사
 au = "div.topColRgt > div.gd_infoTop > span.gd_pubArea >span.gd_auth"  # 저자
-pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > div.gd_infoTb > table > tbody > tr > td > span > em"
+pr = "div.topColRgt > div.gd_infoBot > div.gd_infoTbArea > input > div.gd_infoTb> table > tbody > tr > td > span > em.yes_m" # 가격
 sc = "div.topColRgt > div.gd_infoTop > span.gd_ratingArea > span.gd_sellNum "
 
 title_a = soup.select(title_tag)
@@ -22,7 +22,6 @@ pbp = soup.select(pb)  # 출판사
 aut = soup.select(au)  # 저자
 pri = soup.select(pr)  # 가격
 scp = soup.select(sc)  # 판매지수
-
 
 
 title = str(title_a).split("\">")[1].split("</")[0]
